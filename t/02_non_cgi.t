@@ -4,8 +4,8 @@ use URI::Escape;
 
 use Test::Mock::LWP::Dispatch;
 
-use Net::OpenIdLogin;
-my $fl = Net::OpenIdLogin->new(claimed_id => 'https://user.example.com', return_to => 'http://example.com/return');
+use OpenID::Login;
+my $fl = OpenID::Login->new(claimed_id => 'https://user.example.com', return_to => 'http://example.com/return');
 
 $mock_ua->map('https://user.example.com/', HTTP::Response->parse(<<'EOL1'));
 HTTP/1.1 200 OK
@@ -89,9 +89,9 @@ SKIP: {
     my $not_cgi = Catalyst::Request->new( _log => Catalyst::Log->new() );
     $not_cgi->param($_, $params_hashref->{$_}) foreach keys %$params_hashref;
     
-    my $auth_fl = Net::OpenIdLogin->new(cgi => $not_cgi, return_to => 'http://example.com/return');
+    my $auth_fl = OpenID::Login->new(cgi => $not_cgi, return_to => 'http://example.com/return');
     is($auth_fl->verify_auth(), 'https://user.example.com', 'OpenID validated cgi');
 };
 
-my $auth_fl = Net::OpenIdLogin->new(cgi_params => $params_hashref, return_to => 'http://example.com/return');
+my $auth_fl = OpenID::Login->new(cgi_params => $params_hashref, return_to => 'http://example.com/return');
 is($auth_fl->verify_auth(), 'https://user.example.com', 'OpenID validated cgi_params');

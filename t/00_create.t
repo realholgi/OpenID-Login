@@ -1,5 +1,5 @@
 use Test::More tests => 2;
-BEGIN {use_ok ('Net::OpenIdLogin')};
+BEGIN {use_ok ('OpenID::Login')};
 
-my $o = Net::OpenIdLogin->new();
-isa_ok($o, 'Net::OpenIdLogin');
+my $o = OpenID::Login->new();
+isa_ok($o, 'OpenID::Login');

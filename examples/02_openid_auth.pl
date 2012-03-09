@@ -4,13 +4,13 @@ use strict;
 use Carp;
 use CGI;
 use CGI::Carp qw(fatalsToBrowser);
-use Net::OpenIdLogin;
+use OpenID::Login;
 
 my $cgi = new CGI;
 
 print $cgi->header("text/plain");
 
-my $res = Net::OpenIdLogin->new( cgi => $cgi, return_to => 'https://www.examle.com/cgi-bin/openid_auth' );
+my $res = OpenID::Login->new( cgi => $cgi, return_to => 'https://www.examle.com/cgi-bin/openid_auth' );
 my $identity_url = $res->verify_auth();
 
 if ($identity_url) {    # openid login successfully completed.

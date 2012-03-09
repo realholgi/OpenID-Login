@@ -1,12 +1,12 @@
 use Test::More tests => 7;
 
-use Net::OpenIdLogin;
+use OpenID::Login;
 
-is( Net::OpenIdLogin::normalize('example.com'),              'http://example.com/' );
-is( Net::OpenIdLogin::normalize('http://example.com'),       'http://example.com/' );
-is( Net::OpenIdLogin::normalize('https://example.com'),      'https://example.com/' );
-is( Net::OpenIdLogin::normalize('https://example.com/'),     'https://example.com/' );
-is( Net::OpenIdLogin::normalize('http://example.com/user'),  'http://example.com/user' );
-is( Net::OpenIdLogin::normalize('http://example.com/user/'), 'http://example.com/user/' );
-is( Net::OpenIdLogin::normalize('http://example.com/'),      'http://example.com/' );
+is( OpenID::Login::normalize('example.com'),              'http://example.com/' );
+is( OpenID::Login::normalize('http://example.com'),       'http://example.com/' );
+is( OpenID::Login::normalize('https://example.com'),      'https://example.com/' );
+is( OpenID::Login::normalize('https://example.com/'),     'https://example.com/' );
+is( OpenID::Login::normalize('http://example.com/user'),  'http://example.com/user' );
+is( OpenID::Login::normalize('http://example.com/user/'), 'http://example.com/user/' );
+is( OpenID::Login::normalize('http://example.com/'),      'http://example.com/' );
 

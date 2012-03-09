@@ -4,14 +4,14 @@ use strict;
 use Carp;
 use CGI;
 use CGI::Carp qw(fatalsToBrowser);
-use Net::OpenIdLogin;
+use OpenID::Login;
 
 # call with https://www.example.com/cgi-bin/01_openid_redirect.pl?identifier=https://user.example.com
 
 my $cgi = new CGI;
 my $identifier = $cgi->param('identifier') or croak 'required parameter identifier missing';
 
-my $openid = Net::OpenIdLogin->new(
+my $openid = OpenID::Login->new(
     claimed_id => $identifier,
     return_to  => 'https://www.examle.com/cgi-bin/02_openid_auth.pl',
     realm      => 'https:/www.example.com/',

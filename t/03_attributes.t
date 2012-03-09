@@ -3,8 +3,8 @@ use Test::More tests => 6;
 use CGI;
 use Test::Mock::LWP::Dispatch;
 
-use Net::OpenIdLogin;
-my $fl = Net::OpenIdLogin->new(
+use OpenID::Login;
+my $fl = OpenID::Login->new(
     claimed_id => 'https://user.example.com/',
     return_to  => 'http://example.com/return',
     extensions => [
@@ -150,7 +150,7 @@ my $returned_params =
     . '&openid.ext1.value.lastname=Body';
 
 my $cgi       = CGI->new($returned_params);
-my $auth_fl   = Net::OpenIdLogin->new( cgi => $cgi, return_to => 'http://example.com/return' );
+my $auth_fl   = OpenID::Login->new( cgi => $cgi, return_to => 'http://example.com/return' );
 my $extension = $auth_fl->get_extension('http://openid.net/srv/ax/1.0');
 
 is( $extension->get_parameter('value.firstname'), 'Some' );

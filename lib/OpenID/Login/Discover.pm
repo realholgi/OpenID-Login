@@ -1,4 +1,5 @@
-package Net::OpenIdLogin::Discover;
+package OpenID::Login::Discover;
+
 # ABSTRACT: Find an endpoint for generic OpenID identifiers
 
 use Moose;
@@ -10,16 +11,22 @@ has claimed_id => (
 );
 
 has ua => (
-    is  => 'rw',
-    isa => 'LWP::UserAgent',
-    required    => 1,
+    is       => 'rw',
+    isa      => 'LWP::UserAgent',
+    required => 1,
 );
+
+=method perform_discovery
+
+Performs OpenID endpoint discovery for generic OpenID indentifiers
+
+=cut
 
 sub perform_discovery {
     my $self = shift;
 
     my $claimed_id = $self->claimed_id;
-    my $server = $self->_get_xrds_location( $claimed_id );
+    my $server     = $self->_get_xrds_location($claimed_id);
     my $open_id_endpoint;
     if ($server) {
         my $xrds = $self->_get($server)->decoded_content;
@@ -34,7 +41,7 @@ sub perform_discovery {
 sub _get {
     my ( $self, $url ) = @_;
 
-    my $ua = $self->ua;
+    my $ua  = $self->ua;
     my $res = $ua->get($url);
     $res->is_success or return;
     $res;
@@ -55,13 +62,4 @@ __PACKAGE__->meta->make_immutable;
 
 __END__
 
-=pod
-
-=head1 METHODS
-
-=head2 perform_discovery
-
-Performs OpenID endpoint discovery for generic OpenID indentifiers
-
-=cut
 
