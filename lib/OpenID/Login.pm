@@ -266,10 +266,14 @@ sub verify_auth {
         my $param = $_;
         my $val   = $self->_get_param($param);
         $val = 'check_authentication' if $param eq 'openid.mode';
-        sprintf '%s=%s', uri_escape_utf8($param), uri_escape_utf8($val);
+        sprintf '%s=%s', uri_escape($param), uri_escape($val);
     } $self->_get_param;
 
     my $ua = $self->ua;
+
+    open RESOUT, '>>/var/log/shop_openid_login';
+    print RESOUT `date` . "VERIFY: " . $verify_endpoint . "\n";
+    close RESOUT;
 
     my $response = $ua->get( $verify_endpoint, Accept => 'text/plain' );
     my $response_data = _parse_direct_response($response);
