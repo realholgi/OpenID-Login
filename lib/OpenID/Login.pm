@@ -271,10 +271,6 @@ sub verify_auth {
 
     my $ua = $self->ua;
 
-    open RESOUT, '>>/var/log/shop_openid_login';
-    print RESOUT `date` . "VERIFY: " . $verify_endpoint . "\n";
-    close RESOUT;
-
     my $response = $ua->get( $verify_endpoint, Accept => 'text/plain' );
     my $response_data = _parse_direct_response($response);
 
