@@ -137,7 +137,7 @@ sub _parameterise_hash {
     return $params;
 }
 
-=method get_parameter_string
+=method get_parameter
 
 Get a single extension parameter, this is most likely to be used for extensions that are
 the result of a request (rather than when creating a request).
