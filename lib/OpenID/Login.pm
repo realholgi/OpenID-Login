@@ -251,8 +251,7 @@ sub verify_auth {
     my $param_claimed_id = $self->_get_param('openid.claimed_id');
     if ( !$claimed_id ) {
         $self->claimed_id($param_claimed_id);
-    }
-    elsif ( $claimed_id ne $param_claimed_id ) {
+    } elsif ( $claimed_id ne $param_claimed_id ) {
         carp "Identity from parameters ($param_claimed_id) is not the same as the previously set claimed identity ($claimed_id); using the parameter version.";
         $self->claimed_id($param_claimed_id);
     }
@@ -336,20 +335,16 @@ sub _get_param {
     if ( my $cgi = $self->cgi ) {
         if ($param) {
             return $cgi->param($param);
-        }
-        else {
+        } else {
             return $cgi->param();
         }
-    }
-    elsif ( my $cgi_params = $self->cgi_params ) {
+    } elsif ( my $cgi_params = $self->cgi_params ) {
         if ($param) {
             return $cgi_params->{$param};
-        }
-        else {
+        } else {
             return keys %$cgi_params;
         }
-    }
-    else {
+    } else {
         croak('Neither cgi nor cgi_params attributes have been provided (needed to verify OpenID parameters)');
     }
 }

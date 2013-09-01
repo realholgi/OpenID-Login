@@ -50,24 +50,20 @@ around BUILDARGS => sub {
     my $args;
     if ( @_ == 1 && ref $_[0] eq 'HASH' ) {
         $args = $_[0];
-    }
-    else {
+    } else {
         $args = {@_};
     }
     if ( $args->{cgi} or $args->{cgi_params} ) {
         my $new_args;
         if ( $args->{uri} ) {
             $new_args = _extract_attributes_by_uri($args);
-        }
-        elsif ( $args->{ns} ) {
+        } elsif ( $args->{ns} ) {
             $new_args = _extract_attributes_by_ns($args);
-        }
-        else {
+        } else {
             die 'Unable to determine extension details';
         }
         return $class->$orig($new_args);
-    }
-    else {
+    } else {
         return $class->$orig(@_);
     }
 };
@@ -104,8 +100,7 @@ sub _extract_attributes_by_ns {
     if ($cgi) {
         my %signed_params = map { ( "openid.$_" => 1 ) } split /,/, $cgi->param('openid.signed');
         %attributes = ( map { substr( $_, $prefix_len ) => scalar $cgi->param($_) } grep { /^\Q$prefix\E/ and $signed_params{$_} } $cgi->param() );
-    }
-    else {
+    } else {
         my %signed_params = map { ( "openid.$_" => 1 ) } split /,/, $cgi_params->{'openid.signed'};
         %attributes = ( map { substr( $_, $prefix_len ) => $cgi_params->{$_} } grep { /^\Q$prefix\E/ and $signed_params{$_} } keys %$cgi_params );
     }

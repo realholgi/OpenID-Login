@@ -25,7 +25,6 @@ if ($identity_url) {    # openid login successfully completed.
 
         # now do e.g. set a session login cookie and redirect or directly present your protected data for this user
     }
-}
-else {
+} else {
     croak "Login failed.\n";
 }

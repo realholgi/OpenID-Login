@@ -26,7 +26,7 @@ sub perform_discovery {
     my $self = shift;
 
     my $claimed_id = $self->claimed_id;
-    my $server     = $self->_get_xrds_location($claimed_id) || $self->claimed_id;
+    my $server = $self->_get_xrds_location($claimed_id) || $self->claimed_id;
     my $open_id_endpoint;
     if ($server) {
         my $xrds = $self->_get($server)->decoded_content;

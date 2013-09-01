@@ -88,28 +88,21 @@ sub _remove_dot_segments {
     while ( length($path) > 0 ) {
         if ( $path =~ m!^\.\./! ) {
             $path = substr( $path, 3 );
-        }
-        elsif ( $path =~ m!^\./! ) {
+        } elsif ( $path =~ m!^\./! ) {
             $path = substr( $path, 2 );
-        }
-        elsif ( $path =~ m!^/\./! ) {
+        } elsif ( $path =~ m!^/\./! ) {
             $path = substr( $path, 2 );
-        }
-        elsif ( $path eq q{/.} ) {
+        } elsif ( $path eq q{/.} ) {
             $path = q{/};
-        }
-        elsif ( $path =~ m!^/\.\./! ) {
+        } elsif ( $path =~ m!^/\.\./! ) {
             $path = substr( $path, 3 );
             pop(@result_segments) if @result_segments > 0;
-        }
-        elsif ( $path eq q{/..} ) {
+        } elsif ( $path eq q{/..} ) {
             $path = q{/};
             pop(@result_segments) if @result_segments > 0;
-        }
-        elsif ( $path eq q{..} || $path eq q{.} ) {
+        } elsif ( $path eq q{..} || $path eq q{.} ) {
             $path = q{};
-        }
-        else {
+        } else {
             my $i = 0;
             $i = 1 if substr( $path, 0, 1 ) eq q{/};
             $i = index( $path, q{/}, $i );
